@@ -88,17 +88,14 @@ for i=1:N
     PropMaterial=NET.explicitCast(SapModel.PropMaterial,'SAP2000v19.cPropMaterial');
     PropMaterial.SetMPIsotropic('STEEL', E(i), 0.3, 1.170e-05);
     PropMaterial.SetOSteel_1('STEEL',Fy(i),Fu(i),Fye(i),Fue(i),1,0,strain_hardening,strain_max_stress,strain_rupture,final_slope);
-    %PropMaterial.SetWeightAndMass('CONC1',1,1);
-    %PropMaterial.SetOSteel_1('test',Fy,Fu,Fye,Fue,1,0,sreain_hardening,strain_max_stress,strain_rupture,final_slope);
-    %PropMaterial.SetOConcrete_1('CONC1', Fc', False, 0, 2, 4, StrainAtfc, UltimateStrain, -0.1);
     
     %% RUN ANALYSIS
-            %Compute the time history as a linear compination of th_1 and th_2
+            % Compute the time history as a linear compination of th_1 and th_2
             th_1 = load('El_Centro_1.txt');
             th_2 = load('El_Centro_2.txt');
             RandomTimeHistory = alpha(i) * th_1 + (1-alpha(i)) * th_2;
             writematrix(RandomTimeHistory, 'temp.txt');
-            %Replace comma seperators (',') with void (' ')
+            % Replace comma seperators (',') with void (' ')
             fid = fopen('temp.txt','rt') ;
             X = fread(fid) ;
             fclose(fid) ;
@@ -107,7 +104,7 @@ for i=1:N
             fid2 = fopen('RandomTimeHistory.txt','wt') ;
             fwrite(fid2,Y) ;
             fclose (fid2) ;
-            %Define the Load Case
+            % Define the Load Case
             Func = NET.explicitCast(SapModel.Func,'SAP2000v19.cFunction');
             FuncTH = NET.explicitCast(Func.FuncTH,'SAP2000v19.cFunctionTH');
             ret = FuncTH.SetFromFile_1("ElCentro", "RandomTimeHistory.txt", 0, 0, 8, 1, true,0.02,0.02);
@@ -192,7 +189,7 @@ for i=1:N
             SapModel.SetModelIsLocked(false);
             toc
  
-   %Save data in the appropriate format 
+   % Save data in the appropriate format 
    [nodes, Nt, dofs] = size(u);
    u2 = reshape(u,[nodes*Nt,dofs]);
    dim = size(u2);
@@ -213,7 +210,7 @@ N_dofs = size(data); N_dofs = N_dofs(1);
 data = reshape(data,[N_dofs ,Nt, N]);
 data = permute(data,[3,2,1]);
 
-%Obtain free dofs
+% Obtain free dofs
 for i=1:N
     u_new = reshape(data(i,:,:),[Nt, N_dofs]);
     counter = 0;
@@ -228,7 +225,7 @@ for i=1:N
     N_dofs_free = size(data_new); N_dofs_free = N_dofs_free(3);
 end
 
-%split data according to its dof
+% Split data according to their dof type
 for sample=1:N  
 counter_ux=0; counter_uy=0; counter_uz=0;
 counter_rx=0; counter_ry=0; counter_rz=0;
