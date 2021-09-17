@@ -1,4 +1,4 @@
-%% MONTE CARLO SIMULATION FOR UNCERTAINTY PROPAGATION WITH SAP2000 API AND MATLAB
+%% MONTE CARLO SIMULATION WITH SAP2000 API AND MATLAB
 
 % The script performs a Monte Carlo simulation of a structural model which is previously defined in Sap2000.
 % The script requires as inputs:
