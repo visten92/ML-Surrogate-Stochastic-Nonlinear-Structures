@@ -23,7 +23,6 @@ f_n = [];
 % Select the desired number of samples 
 N = 2; 
 data= cell(1,N);
-alpha = unifrnd(0,1,[N,1]);
 
 % Modulus of Elasticity
 m = 1.97; v = (0.141*m)^4;
